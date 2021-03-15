@@ -1,9 +1,13 @@
 {
-  "name": "express-gateway",
-  "version": "1.16.10",
+  "name": "@wavo-cloud/express-gateway",
+  "version": "1.16.11",
   "description": "A microservices API gateway built on top of ExpressJS",
   "homepage": "https://www.express-gateway.io",
-  "repository": "expressgateway/express-gateway",
+  "repository": "https://github.com/Wavo/express-gateway",
+  "wavoCloud": {
+    "enableK8sDeployment": false,
+    "name": "wavo-cloud.express-gateway"
+  },
   "keywords": [
     "microservices",
     "apis",
@@ -86,6 +90,7 @@
     "lodash.flatmap": "^4.5.0",
     "minimatch": "^3.0.4",
     "oauth2orize": "^1.11.0",
+    "pac-proxy-agent": "^3.0.0",
     "parent-require": "^1.0.0",
     "passport": "^0.4.0",
     "passport-http": "0.3.0",
@@ -111,6 +116,7 @@
   "devDependencies": {
     "@types/express": "^4.17.1",
     "@types/json-schema": "7.0.3",
+    "@wavo-cloud/generator-microservice": "^4.0.2",
     "codecov": "^3.5.0",
     "cpr": "^3.0.1",
     "cross-env": "^5.2.1",

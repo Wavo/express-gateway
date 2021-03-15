@@ -1,21 +1,19 @@
-FROM node:10-alpine
+FROM node:12.13-alpine
 
-LABEL maintainer Vincenzo Chianese, vincenzo@express-gateway.io
+# Create app directory
+RUN mkdir -p /usr/local/src/cloud-app
+WORKDIR /usr/local/src/cloud-app
 
-ARG EG_VERSION
-ENV NODE_ENV production
-ENV NODE_PATH /usr/local/share/.config/yarn/global/node_modules/
-ENV EG_CONFIG_DIR /var/lib/eg
-# Enable chokidar polling so hot-reload mechanism can work on docker or network volumes
-ENV CHOKIDAR_USEPOLLING true
+# Add .npmrc, package.json & yarn.lock
+COPY .npmrc /usr/local/src/cloud-app/.npmrc
+COPY package.json yarn.lock /usr/local/src/cloud-app/
 
-VOLUME /var/lib/eg
+# Install modules with yarn
+RUN yarn
 
-RUN yarn global add express-gateway@$EG_VERSION
+# Copy the code
+COPY . /usr/local/src/cloud-app/
 
-COPY ./bin/generators/gateway/templates/basic/config /var/lib/eg
-COPY ./lib/config/models /var/lib/eg/models
-
-EXPOSE 8080 9876
-
-CMD ["node", "-e", "require('express-gateway')().run();"]
+# Let's roll!
+EXPOSE 3000
+CMD [ "yarn", "start" ]
